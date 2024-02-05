@@ -124,11 +124,11 @@ head(df_carpark)
 
 | CarParkID | Area   | Development        | Location          | AvailableLots | LotType | Agency |
 |:----------|:-------|:-------------------|:------------------|--------------:|:--------|:-------|
-| 1         | Marina | Suntec City        | 1.29375 103.85718 |           793 | C       | LTA    |
-| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1201 | C       | LTA    |
-| 3         | Marina | Raffles City       | 1.29382 103.85319 |           457 | C       | LTA    |
-| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           625 | C       | LTA    |
-| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           518 | C       | LTA    |
-| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           246 | C       | LTA    |
+| 1         | Marina | Suntec City        | 1.29375 103.85718 |           630 | C       | LTA    |
+| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1018 | C       | LTA    |
+| 3         | Marina | Raffles City       | 1.29382 103.85319 |           241 | C       | LTA    |
+| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           612 | C       | LTA    |
+| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           488 | C       | LTA    |
+| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           244 | C       | LTA    |
 
 </div>

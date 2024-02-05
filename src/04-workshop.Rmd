@@ -28,8 +28,6 @@ df_unemp <- table[[1]] %>%
   rename(year = 1)
 df_unemp
 
-"C:\Program Files\Git\usr\bin\gpg.exe"
-
 # Convert it into tidy format and plot data
 df_unemp %>% pivot_longer(January:December, names_to = "month", values_to = "unemp_rate") %>%
   mutate(yr_month = ym(paste(year, month, sep = "-"))) %>%
