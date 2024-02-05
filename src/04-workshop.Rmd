@@ -92,6 +92,8 @@ df_carpark <- as_tibble(res_list$value)
 head(df_carpark)
 ```
 
+### The `ltaer` package
+
 Additionally, there's an `R` package, `ltaer`, that help us obtain data from the LTA APIs.
 
 + Read the full documentation of the package [here](https://shaunkhoo.github.io/ltaer/index.html).
@@ -109,6 +111,8 @@ devtools::install_github('shaunkhoo/ltaer', force = TRUE)
 carpark_avail <- ltaer::getCarparkAvail(Sys.getenv("LTA_KEY"))
 head(carpark_avail)
 ```
+
+
 
 
 
