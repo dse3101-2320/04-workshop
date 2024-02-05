@@ -48,9 +48,7 @@ As API calls to FRED requires an API key, we need to sign up for an API key firs
 
 ```{r}
 library(httr)
-base_url <- "https://api.stlouisfed.org"
-endpoint <- "/fred/series/observations"
-resource_url <- paste0(base_url, endpoint)
+resource_url <- "https://api.stlouisfed.org/fred/series/observations"
 query_params = list(api_key = Sys.getenv("FRED_KEY"),
                     series_id = "MEHOINUSA672N",
                     file_type = "json")
@@ -75,19 +73,44 @@ income %>%
 
 ## Realtime Carpark availability
 
+To query data from the LTA DataMall, we also need to request an API key.
+
++ Read the LTA's documentation for their APIs and understand how to set up the `GET()` requests.
+
 ```{r}
 # Construct the resource URL
-base_url <- "http://datamall2.mytransport.sg"
-endpoint <- "/ltaodataservice/CarParkAvailabilityv2"
-resource_url <- paste0(base_url, endpoint)
-# Make the request and parse the returned data
+resource_url <- "http://datamall2.mytransport.sg/ltaodataservice/CarParkAvailabilityv2"
+# Make the GET() request
 res <- GET(resource_url, 
            add_headers(AccountKey = Sys.getenv("LTA_KEY"),
                        accept = "application/json"))
+# Parse the returned data
 res_content <- content(res, as = "text")
 res_list <- fromJSON(res_content, flatten = TRUE)
-# Extract information from sublist
+# Extract information from sub-list
 df_carpark <- as_tibble(res_list$value)
 head(df_carpark)
 ```
+
+Additionally, there's an `R` package, `ltaer`, that help us obtain data from the LTA APIs.
+
++ Read the full documentation of the package [here](https://shaunkhoo.github.io/ltaer/index.html).
+
+```{r eval = FALSE}
+# Install the package
+install.packages('devtools')
+devtools::install_github('shaunkhoo/ltaer', force = TRUE)
+```
+
++ The data set on carpark availability can be retrieved with the following code.
+
+```{r}
+# Retrieve data on carpark availability
+carpark_avail <- ltaer::getCarparkAvail(Sys.getenv("LTA_KEY"))
+head(carpark_avail)
+```
+
+
+
+
 

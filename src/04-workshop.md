@@ -75,9 +75,7 @@ key first.
 
 ``` r
 library(httr)
-base_url <- "https://api.stlouisfed.org"
-endpoint <- "/fred/series/observations"
-resource_url <- paste0(base_url, endpoint)
+resource_url <- "https://api.stlouisfed.org/fred/series/observations"
 query_params = list(api_key = Sys.getenv("FRED_KEY"),
                     series_id = "MEHOINUSA672N",
                     file_type = "json")
@@ -104,18 +102,22 @@ income %>%
 
 ## Realtime Carpark availability
 
+To query data from the LTA DataMall, we also need to request an API key.
+
+- Read the LTA’s documentation for their APIs and understand how to set
+  up the `GET()` requests.
+
 ``` r
 # Construct the resource URL
-base_url <- "http://datamall2.mytransport.sg"
-endpoint <- "/ltaodataservice/CarParkAvailabilityv2"
-resource_url <- paste0(base_url, endpoint)
-# Make the request and parse the returned data
+resource_url <- "http://datamall2.mytransport.sg/ltaodataservice/CarParkAvailabilityv2"
+# Make the GET() request
 res <- GET(resource_url, 
            add_headers(AccountKey = Sys.getenv("LTA_KEY"),
                        accept = "application/json"))
+# Parse the returned data
 res_content <- content(res, as = "text")
 res_list <- fromJSON(res_content, flatten = TRUE)
-# Extract information from sublist
+# Extract information from sub-list
 df_carpark <- as_tibble(res_list$value)
 head(df_carpark)
 ```
@@ -124,11 +126,45 @@ head(df_carpark)
 
 | CarParkID | Area   | Development        | Location          | AvailableLots | LotType | Agency |
 |:----------|:-------|:-------------------|:------------------|--------------:|:--------|:-------|
-| 1         | Marina | Suntec City        | 1.29375 103.85718 |           630 | C       | LTA    |
-| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1018 | C       | LTA    |
-| 3         | Marina | Raffles City       | 1.29382 103.85319 |           241 | C       | LTA    |
+| 1         | Marina | Suntec City        | 1.29375 103.85718 |           632 | C       | LTA    |
+| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1013 | C       | LTA    |
+| 3         | Marina | Raffles City       | 1.29382 103.85319 |           242 | C       | LTA    |
 | 4         | Marina | The Esplanade      | 1.29011 103.85561 |           612 | C       | LTA    |
-| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           488 | C       | LTA    |
+| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           448 | C       | LTA    |
 | 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           244 | C       | LTA    |
+
+</div>
+
+Additionally, there’s an `R` package, `ltaer`, that help us obtain data
+from the LTA APIs.
+
+- Read the full documentation of the package
+  [here](https://shaunkhoo.github.io/ltaer/index.html).
+
+``` r
+# Install the package
+install.packages('devtools')
+devtools::install_github('shaunkhoo/ltaer', force = TRUE)
+```
+
+- The data set on carpark availability can be retrieved with the
+  following code.
+
+``` r
+# Retrieve data on carpark availability
+carpark_avail <- ltaer::getCarparkAvail(Sys.getenv("LTA_KEY"))
+head(carpark_avail)
+```
+
+<div class="kable-table">
+
+| CarParkID | Area   | Development        | Location          | AvailableLots | LotType | Agency | lat     | lng       |
+|:----------|:-------|:-------------------|:------------------|--------------:|:--------|:-------|:--------|:----------|
+| 1         | Marina | Suntec City        | 1.29375 103.85718 |           632 | C       | LTA    | 1.29375 | 103.85718 |
+| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1013 | C       | LTA    | 1.29115 | 103.85728 |
+| 3         | Marina | Raffles City       | 1.29382 103.85319 |           242 | C       | LTA    | 1.29382 | 103.85319 |
+| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           612 | C       | LTA    | 1.29011 | 103.85561 |
+| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           448 | C       | LTA    | 1.29251 | 103.86009 |
+| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           244 | C       | LTA    | 1.28944 | 103.86311 |
 
 </div>
