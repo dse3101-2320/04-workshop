@@ -9,10 +9,10 @@ YH
 
 ## Labor and employment
 
-Query data from
+Let’s first scrape data from
 <https://www.ncsl.org/research/labor-and-employment/national-employment-monthly-update.aspx>,
-which contain unemployment data originally from the Bureau of Labor
-Statistics
+which contain a nicely formatted table on unemployment data. The data
+were originally from the Bureau of Labor Statistics.
 
 ``` r
 library(rvest)
@@ -126,12 +126,12 @@ head(df_carpark)
 
 | CarParkID | Area   | Development        | Location          | AvailableLots | LotType | Agency |
 |:----------|:-------|:-------------------|:------------------|--------------:|:--------|:-------|
-| 1         | Marina | Suntec City        | 1.29375 103.85718 |           652 | C       | LTA    |
-| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1015 | C       | LTA    |
-| 3         | Marina | Raffles City       | 1.29382 103.85319 |           265 | C       | LTA    |
-| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           614 | C       | LTA    |
-| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           493 | C       | LTA    |
-| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           244 | C       | LTA    |
+| 1         | Marina | Suntec City        | 1.29375 103.85718 |           635 | C       | LTA    |
+| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1022 | C       | LTA    |
+| 3         | Marina | Raffles City       | 1.29382 103.85319 |           290 | C       | LTA    |
+| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           611 | C       | LTA    |
+| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           506 | C       | LTA    |
+| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           245 | C       | LTA    |
 
 </div>
 
@@ -162,11 +162,11 @@ head(carpark_avail)
 
 | CarParkID | Area   | Development        | Location          | AvailableLots | LotType | Agency | lat     | lng       |
 |:----------|:-------|:-------------------|:------------------|--------------:|:--------|:-------|:--------|:----------|
-| 1         | Marina | Suntec City        | 1.29375 103.85718 |           652 | C       | LTA    | 1.29375 | 103.85718 |
-| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1015 | C       | LTA    | 1.29115 | 103.85728 |
-| 3         | Marina | Raffles City       | 1.29382 103.85319 |           265 | C       | LTA    | 1.29382 | 103.85319 |
-| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           614 | C       | LTA    | 1.29011 | 103.85561 |
-| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           493 | C       | LTA    | 1.29251 | 103.86009 |
-| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           244 | C       | LTA    | 1.28944 | 103.86311 |
+| 1         | Marina | Suntec City        | 1.29375 103.85718 |           635 | C       | LTA    | 1.29375 | 103.85718 |
+| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1022 | C       | LTA    | 1.29115 | 103.85728 |
+| 3         | Marina | Raffles City       | 1.29382 103.85319 |           290 | C       | LTA    | 1.29382 | 103.85319 |
+| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           611 | C       | LTA    | 1.29011 | 103.85561 |
+| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           506 | C       | LTA    | 1.29251 | 103.86009 |
+| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           245 | C       | LTA    | 1.28944 | 103.86311 |
 
 </div>

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 ## Labor and employment
 
-Query data from https://www.ncsl.org/research/labor-and-employment/national-employment-monthly-update.aspx, which contain unemployment data originally from the Bureau of Labor Statistics
+Let's first scrape data from https://www.ncsl.org/research/labor-and-employment/national-employment-monthly-update.aspx, which contain a nicely formatted table on unemployment data. The data were originally from the Bureau of Labor Statistics.
 
 ```{r}
 library(rvest)
