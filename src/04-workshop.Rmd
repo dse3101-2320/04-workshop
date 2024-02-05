@@ -1,0 +1,95 @@
+---
+title: "Workshop 4"
+author: "YH"
+date: "`r Sys.Date()`"
+output: 
+  github_document:
+    toc: true
+    toc_depth: 2
+    fig_width: 10
+    fig_height: 4
+    df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## Labor and employment
+
+Query data from https://www.ncsl.org/research/labor-and-employment/national-employment-monthly-update.aspx, which contain unemployment data originally from the Bureau of Labor Statistics
+
+```{r}
+library(rvest)
+library(tidyverse)
+url = "https://www.ncsl.org/research/labor-and-employment/national-employment-monthly-update.aspx"
+table = read_html(url) %>% html_elements("table") %>% html_table()
+df_unemp <- table[[1]] %>%
+  rename(year = 1)
+df_unemp
+
+"C:\Program Files\Git\usr\bin\gpg.exe"
+
+# Convert it into tidy format and plot data
+df_unemp %>% pivot_longer(January:December, names_to = "month", values_to = "unemp_rate") %>%
+  mutate(yr_month = ym(paste(year, month, sep = "-"))) %>%
+  ggplot(aes(x = yr_month, y = unemp_rate)) +
+  geom_line(lwd = 2, color = "indianred4") +
+  theme_minimal() +
+  labs(title = "US Unemployment rate, 2008 - Jan 2024",
+       y = "Percent unemployed", x = "Year")
+```
+
+## Household income
+
+As API calls to FRED requires an API key, we need to sign up for an API key first.
+
++ It's important to keep your API key private.
+
++ In the code below, my API key is saved as `Sys.getenv("FRED_KEY")`. This is one way to keep the API key secret. You can find out more about it [here](https://daattali.gitbooks.io/stat545-ubc-github-io/content/bit003_api-key-env-var.html).
+
+```{r}
+library(httr)
+base_url <- "https://api.stlouisfed.org"
+endpoint <- "/fred/series/observations"
+resource_url <- paste0(base_url, endpoint)
+query_params = list(api_key = Sys.getenv("FRED_KEY"),
+                    series_id = "MEHOINUSA672N",
+                    file_type = "json")
+# Request data from the server
+res = GET(resource_url, query = query_params)
+
+# Parse JSON
+library(jsonlite)
+res_list <- content(res, type = "text") %>% fromJSON(flatten = TRUE)
+# Convert data into tibble
+income <- as_tibble(res_list$observations)
+
+# Plots
+income %>%
+  mutate(year = year(date), value = as.numeric(value)) %>%
+  filter(year >= 1990) %>%
+  ggplot(aes(x = year, y = value)) +
+  geom_line(lwd = 2, color = "indianred4", alpha = 0.9) +
+  theme_minimal() +
+  labs(x = "", y = "", title = "Real Median Household Income in the US, 1990 to present")
+```
+
+## Realtime Carpark availability
+
+```{r}
+# Construct the resource URL
+base_url <- "http://datamall2.mytransport.sg"
+endpoint <- "/ltaodataservice/CarParkAvailabilityv2"
+resource_url <- paste0(base_url, endpoint)
+# Make the request and parse the returned data
+res <- GET(resource_url, 
+           add_headers(AccountKey = Sys.getenv("LTA_KEY"),
+                       accept = "application/json"))
+res_content <- content(res, as = "text")
+res_list <- fromJSON(res_content, flatten = TRUE)
+# Extract information from sublist
+df_carpark <- as_tibble(res_list$value)
+head(df_carpark)
+```
+
