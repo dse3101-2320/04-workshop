@@ -154,8 +154,8 @@ income %>%
 
 To query data from the LTA DataMall, we also need to request an API key.
 
-- Read the LTA’s documentation for their APIs and understand how to set
-  up the `GET()` requests.
+- Read the LTA’s **documentation** for their APIs and understand how to
+  set up the `GET()` requests.
 
 ``` r
 # Construct the resource URL
