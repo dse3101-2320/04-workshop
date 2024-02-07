@@ -10,7 +10,7 @@ YH
 
 ## Labor and employment
 
-Let’s first scrape data from
+In the first practice, let’s visit the web page
 <https://www.ncsl.org/research/labor-and-employment/national-employment-monthly-update.aspx>,
 which contain a nicely formatted table on unemployment data. The data
 were originally from the Bureau of Labor Statistics.
@@ -176,12 +176,12 @@ head(df_carpark)
 
 | CarParkID | Area      | Development        | Location          | AvailableLots | LotType | Agency |
 |:----------|:----------|:-------------------|:------------------|--------------:|:--------|:-------|
-| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           627 | C       | LTA    |
-| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           330 | C       | LTA    |
-| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           608 | C       | LTA    |
-| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           545 | C       | LTA    |
-| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           233 | C       | LTA    |
-| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           343 | C       | LTA    |
+| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           608 | C       | LTA    |
+| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           317 | C       | LTA    |
+| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           610 | C       | LTA    |
+| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           528 | C       | LTA    |
+| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           232 | C       | LTA    |
+| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           263 | C       | LTA    |
 
 </div>
 
@@ -212,11 +212,11 @@ head(carpark_avail)
 
 | CarParkID | Area      | Development        | Location          | AvailableLots | LotType | Agency | lat     | lng       |
 |:----------|:----------|:-------------------|:------------------|--------------:|:--------|:-------|:--------|:----------|
-| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           627 | C       | LTA    | 1.29375 | 103.85718 |
-| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           330 | C       | LTA    | 1.29382 | 103.85319 |
-| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           608 | C       | LTA    | 1.29011 | 103.85561 |
-| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           545 | C       | LTA    | 1.29251 | 103.86009 |
-| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           233 | C       | LTA    | 1.28944 | 103.86311 |
-| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           343 | C       | LTA    | 1.26421 | 103.82263 |
+| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           608 | C       | LTA    | 1.29375 | 103.85718 |
+| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           317 | C       | LTA    | 1.29382 | 103.85319 |
+| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           610 | C       | LTA    | 1.29011 | 103.85561 |
+| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           528 | C       | LTA    | 1.29251 | 103.86009 |
+| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           232 | C       | LTA    | 1.28944 | 103.86311 |
+| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           263 | C       | LTA    | 1.26421 | 103.82263 |
 
 </div>
