@@ -118,9 +118,9 @@ key first.
 
 - It’s important to keep your API key private.
 
-- In the code below, my API key is saved as `Sys.getenv("FRED_KEY")`.
-  This is one way to keep the API key secret. You can find out more
-  about it
+- In the code below, my API key is retrieved in
+  `Sys.getenv("FRED_KEY")`. This is one way to keep the API key secret.
+  You can find out more about it
   [here](https://daattali.gitbooks.io/stat545-ubc-github-io/content/bit003_api-key-env-var.html).
 
 ``` r
@@ -155,6 +155,8 @@ income %>%
 
 To query data from the LTA DataMall, we also need to request an API key.
 
+- In the code below, my API key is retrieved in `Sys.getenv("LTA_KEY")`.
+
 - Read the LTA’s **documentation** for their APIs and understand how to
   set up the `GET()` requests.
 
@@ -175,14 +177,14 @@ head(df_carpark)
 
 <div class="kable-table">
 
-| CarParkID | Area      | Development        | Location          | AvailableLots | LotType | Agency |
-|:----------|:----------|:-------------------|:------------------|--------------:|:--------|:-------|
-| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           555 | C       | LTA    |
-| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           243 | C       | LTA    |
-| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           614 | C       | LTA    |
-| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           477 | C       | LTA    |
-| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           234 | C       | LTA    |
-| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           142 | C       | LTA    |
+| CarParkID | Area   | Development        | Location          | AvailableLots | LotType | Agency |
+|:----------|:-------|:-------------------|:------------------|--------------:|:--------|:-------|
+| 1         | Marina | Suntec City        | 1.29375 103.85718 |           657 | C       | LTA    |
+| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1227 | C       | LTA    |
+| 3         | Marina | Raffles City       | 1.29382 103.85319 |           484 | C       | LTA    |
+| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           626 | C       | LTA    |
+| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           607 | C       | LTA    |
+| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           237 | C       | LTA    |
 
 </div>
 
@@ -200,6 +202,9 @@ install.packages('devtools')
 devtools::install_github('shaunkhoo/ltaer', force = TRUE)
 ```
 
+- To obtain data via this API wrapper, we still need to supply our own
+  API KEY.
+
 - The data set on carpark availability can be retrieved with:
 
 ``` r
@@ -210,13 +215,13 @@ head(carpark_avail)
 
 <div class="kable-table">
 
-| CarParkID | Area      | Development        | Location          | AvailableLots | LotType | Agency | lat     | lng       |
-|:----------|:----------|:-------------------|:------------------|--------------:|:--------|:-------|:--------|:----------|
-| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           555 | C       | LTA    | 1.29375 | 103.85718 |
-| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           243 | C       | LTA    | 1.29382 | 103.85319 |
-| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           614 | C       | LTA    | 1.29011 | 103.85561 |
-| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           477 | C       | LTA    | 1.29251 | 103.86009 |
-| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           234 | C       | LTA    | 1.28944 | 103.86311 |
-| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           142 | C       | LTA    | 1.26421 | 103.82263 |
+| CarParkID | Area   | Development        | Location          | AvailableLots | LotType | Agency | lat     | lng       |
+|:----------|:-------|:-------------------|:------------------|--------------:|:--------|:-------|:--------|:----------|
+| 1         | Marina | Suntec City        | 1.29375 103.85718 |           657 | C       | LTA    | 1.29375 | 103.85718 |
+| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1227 | C       | LTA    | 1.29115 | 103.85728 |
+| 3         | Marina | Raffles City       | 1.29382 103.85319 |           484 | C       | LTA    | 1.29382 | 103.85319 |
+| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           626 | C       | LTA    | 1.29011 | 103.85561 |
+| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           607 | C       | LTA    | 1.29251 | 103.86009 |
+| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           237 | C       | LTA    | 1.28944 | 103.86311 |
 
 </div>

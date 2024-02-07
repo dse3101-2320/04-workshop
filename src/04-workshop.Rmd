@@ -68,7 +68,7 @@ As API calls to FRED requires an API key, we need to sign up for an API key firs
 
 + It's important to keep your API key private.
 
-+ In the code below, my API key is saved as `Sys.getenv("FRED_KEY")`. This is one way to keep the API key secret. You can find out more about it [here](https://daattali.gitbooks.io/stat545-ubc-github-io/content/bit003_api-key-env-var.html).
++ In the code below, my API key is retrieved in `Sys.getenv("FRED_KEY")`. This is one way to keep the API key secret. You can find out more about it [here](https://daattali.gitbooks.io/stat545-ubc-github-io/content/bit003_api-key-env-var.html).
 
 ```{r}
 library(httr)
@@ -100,6 +100,8 @@ income %>%
 
 To query data from the LTA DataMall, we also need to request an API key.
 
++ In the code below, my API key is retrieved in `Sys.getenv("LTA_KEY")`.
+
 + Read the LTA's **documentation** for their APIs and understand how to set up the `GET()` requests.
 
 ```{r}
@@ -128,6 +130,8 @@ Additionally, there's an API client `R` package, `ltaer`, that help us obtain da
 install.packages('devtools')
 devtools::install_github('shaunkhoo/ltaer', force = TRUE)
 ```
+
++ To obtain data via this API wrapper, we still need to supply our own API KEY.
 
 + The data set on carpark availability can be retrieved with:
 
