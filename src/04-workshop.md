@@ -5,7 +5,7 @@ YH
 
 - [Labor and employment](#labor-and-employment)
 - [Demographics in Singapore](#demographics-in-singapore)
-- [Household income](#household-income)
+- [Real median household income](#real-median-household-income)
 - [Realtime Carpark availability](#realtime-carpark-availability)
 
 ## Labor and employment
@@ -111,7 +111,7 @@ df_gender; df_income
 
 </div>
 
-## Household income
+## Real median household income
 
 As API calls to FRED requires an API key, we need to sign up for an API
 key first.
@@ -145,7 +145,8 @@ income %>%
   ggplot(aes(x = year, y = value)) +
   geom_line(lwd = 2, color = "indianred4", alpha = 0.9) +
   theme_minimal() +
-  labs(x = "", y = "", title = "Real Median Household Income in the US, 1990 to present")
+  labs(x = "", y = "", title = "Real Median Household Income in the US, 1990 to 2022",
+       caption = "Source: U.S. Census Bureau.")
 ```
 
 ![](04-workshop_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
@@ -176,19 +177,19 @@ head(df_carpark)
 
 | CarParkID | Area      | Development        | Location          | AvailableLots | LotType | Agency |
 |:----------|:----------|:-------------------|:------------------|--------------:|:--------|:-------|
-| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           608 | C       | LTA    |
-| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           317 | C       | LTA    |
-| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           610 | C       | LTA    |
-| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           528 | C       | LTA    |
-| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           232 | C       | LTA    |
-| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           263 | C       | LTA    |
+| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           555 | C       | LTA    |
+| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           243 | C       | LTA    |
+| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           614 | C       | LTA    |
+| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           477 | C       | LTA    |
+| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           234 | C       | LTA    |
+| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           142 | C       | LTA    |
 
 </div>
 
 ### The `ltaer` package
 
-Additionally, there’s an `R` package, `ltaer`, that help us obtain data
-from the LTA APIs.
+Additionally, there’s an API client `R` package, `ltaer`, that help us
+obtain data from the LTA DataMall.
 
 - Read the full documentation of the package
   [here](https://shaunkhoo.github.io/ltaer/index.html).
@@ -199,8 +200,7 @@ install.packages('devtools')
 devtools::install_github('shaunkhoo/ltaer', force = TRUE)
 ```
 
-- The data set on carpark availability can be retrieved with the
-  following code.
+- The data set on carpark availability can be retrieved with:
 
 ``` r
 # Retrieve data on carpark availability
@@ -212,11 +212,11 @@ head(carpark_avail)
 
 | CarParkID | Area      | Development        | Location          | AvailableLots | LotType | Agency | lat     | lng       |
 |:----------|:----------|:-------------------|:------------------|--------------:|:--------|:-------|:--------|:----------|
-| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           608 | C       | LTA    | 1.29375 | 103.85718 |
-| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           317 | C       | LTA    | 1.29382 | 103.85319 |
-| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           610 | C       | LTA    | 1.29011 | 103.85561 |
-| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           528 | C       | LTA    | 1.29251 | 103.86009 |
-| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           232 | C       | LTA    | 1.28944 | 103.86311 |
-| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           263 | C       | LTA    | 1.26421 | 103.82263 |
+| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           555 | C       | LTA    | 1.29375 | 103.85718 |
+| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           243 | C       | LTA    | 1.29382 | 103.85319 |
+| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           614 | C       | LTA    | 1.29011 | 103.85561 |
+| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           477 | C       | LTA    | 1.29251 | 103.86009 |
+| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           234 | C       | LTA    | 1.28944 | 103.86311 |
+| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           142 | C       | LTA    | 1.26421 | 103.82263 |
 
 </div>

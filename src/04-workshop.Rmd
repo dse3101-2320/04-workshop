@@ -62,7 +62,7 @@ df_income <- read_html(url) %>%
 df_gender; df_income
 ```
 
-## Household income
+## Real median household income
 
 As API calls to FRED requires an API key, we need to sign up for an API key first.
 
@@ -92,7 +92,8 @@ income %>%
   ggplot(aes(x = year, y = value)) +
   geom_line(lwd = 2, color = "indianred4", alpha = 0.9) +
   theme_minimal() +
-  labs(x = "", y = "", title = "Real Median Household Income in the US, 1990 to present")
+  labs(x = "", y = "", title = "Real Median Household Income in the US, 1990 to 2022",
+       caption = "Source: U.S. Census Bureau.")
 ```
 
 ## Realtime Carpark availability
@@ -118,7 +119,7 @@ head(df_carpark)
 
 ### The `ltaer` package
 
-Additionally, there's an `R` package, `ltaer`, that help us obtain data from the LTA APIs.
+Additionally, there's an API client `R` package, `ltaer`, that help us obtain data from the LTA DataMall.
 
 + Read the full documentation of the package [here](https://shaunkhoo.github.io/ltaer/index.html).
 
@@ -128,7 +129,7 @@ install.packages('devtools')
 devtools::install_github('shaunkhoo/ltaer', force = TRUE)
 ```
 
-+ The data set on carpark availability can be retrieved with the following code.
++ The data set on carpark availability can be retrieved with:
 
 ```{r}
 # Retrieve data on carpark availability
