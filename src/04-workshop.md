@@ -1,9 +1,10 @@
 Workshop 4
 ================
 YH
-2024-02-05
+2024-02-07
 
 - [Labor and employment](#labor-and-employment)
+- [Demographics in Singapore](#demographics-in-singapore)
 - [Household income](#household-income)
 - [Realtime Carpark availability](#realtime-carpark-availability)
 
@@ -15,6 +16,7 @@ which contain a nicely formatted table on unemployment data. The data
 were originally from the Bureau of Labor Statistics.
 
 ``` r
+# Load packages
 library(rvest)
 library(tidyverse)
 url = "https://www.ncsl.org/research/labor-and-employment/national-employment-monthly-update.aspx"
@@ -61,6 +63,54 @@ df_unemp %>% pivot_longer(January:December, names_to = "month", values_to = "une
 
 ![](04-workshop_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
+## Demographics in Singapore
+
+Next, we will obtain two tables from the following web page on the
+Demographics of Singapore.
+
+<https://en.wikipedia.org/wiki/Demographics_of_Singapore>
+
+``` r
+url <- "https://en.wikipedia.org/wiki/Demographics_of_Singapore"
+tables <- read_html(url) %>% html_elements("table")
+# Number of tables available
+paste("There are", length(tables), "tables on the web page.")
+```
+
+    ## [1] "There are 50 tables on the web page."
+
+``` r
+df_gender <- read_html(url) %>% 
+  html_element("#mw-content-text > div.mw-content-ltr.mw-parser-output > table:nth-child(53)") %>%
+  html_table()
+
+df_income <- read_html(url) %>% 
+  html_element("#mw-content-text > div.mw-content-ltr.mw-parser-output > table:nth-child(126)") %>%
+  html_table()
+
+df_gender; df_income
+```
+
+<div class="kable-table">
+
+| Year                                | 1960    | 1965    | 1970    | 1975    | 1980    | 1985    | 1990    | 1995    | 2000    | 2005    | 2010    | 2015    | 2020    |
+|:------------------------------------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|:--------|
+| Total                               | 1,646.4 | 1,886.9 | 2,013.6 | 2,262.6 | 2,282.1 | 2,482.6 | 2,735.9 | 3,013.5 | 3,273.4 | 3,467.8 | 3,771.7 | 3,902.7 | 4,044.2 |
+| Males                               | 859.6   | 973.8   | 1,030.8 | 1,156.1 | 1,159.0 | 1,258.5 | 1,386.3 | 1,514.0 | 1,634.7 | 1,721.1 | 1,861.1 | 1,916.6 | 1,977.6 |
+| Females                             | 786.8   | 913.1   | 982.8   | 1,106.5 | 1,123.1 | 1,224.2 | 1,349.6 | 1,499.5 | 1,638.7 | 1,746.7 | 1,910.6 | 1,986.1 | 2,066.7 |
+| Sex ratio (males per 1,000 females) | 1,093   | 1,066   | 1,049   | 1,045   | 1,032   | 1,028   | 1,027   | 1,010   | 998     | 985     | 974     | 965     | 957     |
+
+</div>
+
+<div class="kable-table">
+
+| Year           | 1990  | 1995  | 1997  | 1998  | 1999  | 2000  | 2010  | 2011  | 2017   |
+|:---------------|:------|:------|:------|:------|:------|:------|:------|:------|:-------|
+| Average income | 3,076 | 4,107 | 4,745 | 4,822 | 4,691 | 4,943 | 8,726 | 9,618 | 11,589 |
+| Median income  | 2,296 | 3,135 | 3,617 | 3,692 | 3,500 | 3,607 | 5,600 | 6,307 | 8,846  |
+
+</div>
+
 ## Household income
 
 As API calls to FRED requires an API key, we need to sign up for an API
@@ -98,7 +148,7 @@ income %>%
   labs(x = "", y = "", title = "Real Median Household Income in the US, 1990 to present")
 ```
 
-![](04-workshop_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](04-workshop_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ## Realtime Carpark availability
 
@@ -124,14 +174,14 @@ head(df_carpark)
 
 <div class="kable-table">
 
-| CarParkID | Area   | Development        | Location          | AvailableLots | LotType | Agency |
-|:----------|:-------|:-------------------|:------------------|--------------:|:--------|:-------|
-| 1         | Marina | Suntec City        | 1.29375 103.85718 |           635 | C       | LTA    |
-| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1022 | C       | LTA    |
-| 3         | Marina | Raffles City       | 1.29382 103.85319 |           290 | C       | LTA    |
-| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           611 | C       | LTA    |
-| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           506 | C       | LTA    |
-| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           245 | C       | LTA    |
+| CarParkID | Area      | Development        | Location          | AvailableLots | LotType | Agency |
+|:----------|:----------|:-------------------|:------------------|--------------:|:--------|:-------|
+| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           627 | C       | LTA    |
+| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           330 | C       | LTA    |
+| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           608 | C       | LTA    |
+| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           545 | C       | LTA    |
+| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           233 | C       | LTA    |
+| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           343 | C       | LTA    |
 
 </div>
 
@@ -160,13 +210,13 @@ head(carpark_avail)
 
 <div class="kable-table">
 
-| CarParkID | Area   | Development        | Location          | AvailableLots | LotType | Agency | lat     | lng       |
-|:----------|:-------|:-------------------|:------------------|--------------:|:--------|:-------|:--------|:----------|
-| 1         | Marina | Suntec City        | 1.29375 103.85718 |           635 | C       | LTA    | 1.29375 | 103.85718 |
-| 2         | Marina | Marina Square      | 1.29115 103.85728 |          1022 | C       | LTA    | 1.29115 | 103.85728 |
-| 3         | Marina | Raffles City       | 1.29382 103.85319 |           290 | C       | LTA    | 1.29382 | 103.85319 |
-| 4         | Marina | The Esplanade      | 1.29011 103.85561 |           611 | C       | LTA    | 1.29011 | 103.85561 |
-| 5         | Marina | Millenia Singapore | 1.29251 103.86009 |           506 | C       | LTA    | 1.29251 | 103.86009 |
-| 6         | Marina | Singapore Flyer    | 1.28944 103.86311 |           245 | C       | LTA    | 1.28944 | 103.86311 |
+| CarParkID | Area      | Development        | Location          | AvailableLots | LotType | Agency | lat     | lng       |
+|:----------|:----------|:-------------------|:------------------|--------------:|:--------|:-------|:--------|:----------|
+| 1         | Marina    | Suntec City        | 1.29375 103.85718 |           627 | C       | LTA    | 1.29375 | 103.85718 |
+| 3         | Marina    | Raffles City       | 1.29382 103.85319 |           330 | C       | LTA    | 1.29382 | 103.85319 |
+| 4         | Marina    | The Esplanade      | 1.29011 103.85561 |           608 | C       | LTA    | 1.29011 | 103.85561 |
+| 5         | Marina    | Millenia Singapore | 1.29251 103.86009 |           545 | C       | LTA    | 1.29251 | 103.86009 |
+| 6         | Marina    | Singapore Flyer    | 1.28944 103.86311 |           233 | C       | LTA    | 1.28944 | 103.86311 |
+| 16        | Harbfront | VivoCity P3        | 1.26421 103.82263 |           343 | C       | LTA    | 1.26421 | 103.82263 |
 
 </div>

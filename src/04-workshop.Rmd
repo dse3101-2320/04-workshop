@@ -20,6 +20,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 Let's first scrape data from https://www.ncsl.org/research/labor-and-employment/national-employment-monthly-update.aspx, which contain a nicely formatted table on unemployment data. The data were originally from the Bureau of Labor Statistics.
 
 ```{r}
+# Load packages
 library(rvest)
 library(tidyverse)
 url = "https://www.ncsl.org/research/labor-and-employment/national-employment-monthly-update.aspx"
@@ -36,6 +37,29 @@ df_unemp %>% pivot_longer(January:December, names_to = "month", values_to = "une
   theme_minimal() +
   labs(title = "US Unemployment rate, 2008 - Jan 2024",
        y = "Percent unemployed", x = "Year")
+```
+
+## Demographics in Singapore
+
+Next, we will obtain two tables from the following web page on the Demographics of Singapore.
+
+https://en.wikipedia.org/wiki/Demographics_of_Singapore
+
+```{r}
+url <- "https://en.wikipedia.org/wiki/Demographics_of_Singapore"
+tables <- read_html(url) %>% html_elements("table")
+# Number of tables available
+paste("There are", length(tables), "tables on the web page.")
+
+df_gender <- read_html(url) %>% 
+  html_element("#mw-content-text > div.mw-content-ltr.mw-parser-output > table:nth-child(53)") %>%
+  html_table()
+
+df_income <- read_html(url) %>% 
+  html_element("#mw-content-text > div.mw-content-ltr.mw-parser-output > table:nth-child(126)") %>%
+  html_table()
+
+df_gender; df_income
 ```
 
 ## Household income
